@@ -23,6 +23,12 @@ var partial = require('partial'),
 
     WithProp = partial.partialize(function (name, val) {
         this[name] = val;
+    }),
+
+    MyMath = partial.partialize({
+        times: function(a, b) {
+            return a * b;
+        }
     });
 
 exports.result = function (beforeExit, assert) {
@@ -48,6 +54,12 @@ exports.construct = function (beforeExit, assert) {
     assert.deepEqual(new (WithProp('x'))(10), {x: 10});
     assert.deepEqual(new (WithProp('x')())(10), {x: 10});
     assert.deepEqual(new (WithProp()('x'))(10), {x: 10});
+};
+
+exports.object = function (beforeExit, assert) {
+    assert.equal(MyMath.times(2, 5), 10);
+    assert.equal(MyMath.times(2)(5), 10);
+    assert.equal(MyMath.times(2)()(5), 10);
 };
 
 /*
