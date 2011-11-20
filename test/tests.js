@@ -42,11 +42,11 @@ var partial = require('partial'),
     }),
 
     MyMath = partial.partialize({
-        times: function(a, b) {
+        times: function (a, b) {
             return a * b;
         },
 
-        'this': function(a, b) {
+        'this': function (a, b) {
             return this;
         }
     });
