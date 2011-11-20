@@ -92,3 +92,36 @@ exports.length = function (beforeExit, assert) {
     assert.equal(times.length, 2);
     assert.equal(times(1).length, 1);
 };
+
+exports.functionP = function (beforeExit, assert) {
+    var times = function (a, b) {
+        return a * b;
+    };
+
+    partial.functionP(times);
+
+    assert.equal(times.p(2)(5), 10);
+    assert.equal(times.p(2, 5), 10);
+};
+
+exports.prototypeP = function (beforeExit, assert) {
+    var times = function (a, b) {
+        return a * b;
+    }, protoP = Function.prototype.p;
+
+    partial.prototypeP();
+
+    assert.equal(times.p(2)(5), 10);
+    assert.equal(times.p(2, 5), 10);
+
+    Function.prototype.p = protoP;
+};
+
+exports.partial = function (beforeExit, assert) {
+    var times = function (a, b) {
+        return a * b;
+    };
+
+    assert.equal(partial(times)(2)(5), 10);
+    assert.equal(partial(times)(2, 5), 10);
+};
